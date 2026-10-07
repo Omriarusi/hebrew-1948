@@ -1,1 +1,1 @@
-{"version": "16c6d1e318", "n_layer": 12, "n_head": 8, "n_embd": 512, "block_size": 512, "vocab_size": 16000, "params_m": 46.0, "iter": 12000, "val_loss": 4.235100269317627}
+{"version": "16c6d1e318", "model_bytes": 46867964, "n_layer": 12, "n_head": 8, "n_embd": 512, "block_size": 512, "vocab_size": 16000, "params_m": 46.0, "iter": 12000, "val_loss": 4.235100269317627}

@@ -11,7 +11,7 @@ ort.env.wasm.numThreads = self.crossOriginIsolated ? Math.min(4, navigator.hardw
 
 let engine = null, controller = null;
 
-async function fetchModel(url, version) {
+async function fetchModel(url, version, size) {
   // keep the model in Cache Storage: the ~45MB download happens once per browser (per model version)
   let cache = null;
   try {
@@ -23,7 +23,8 @@ async function fetchModel(url, version) {
   if (hit) return new Uint8Array(await hit.arrayBuffer());
   const res = await fetch(url);
   if (!res.ok) throw new Error("model download failed: " + res.status);
-  const total = +res.headers.get("Content-Length") || 0;
+  // the host may gzip the file, so Content-Length can be the compressed size: prefer the real one
+  const total = size || +res.headers.get("Content-Length") || 0;
   const reader = res.body.getReader(), chunks = [];
   let loaded = 0;
   for (;;) {
@@ -43,7 +44,7 @@ async function load() {
   const cfg = await fetch(new URL("model/config.json", base), { cache: "no-cache" }).then((r) => r.json());
   const ver = cfg.version || "dev";            // fingerprint of the model file (scripts/export_onnx.py)
   const spec = await fetch(new URL("model/tokenizer.json?" + ver, base)).then((r) => r.json());
-  const bytes = await fetchModel(new URL("model/model_q8.onnx?" + ver, base).href, ver);
+  const bytes = await fetchModel(new URL("model/model_q8.onnx?" + ver, base).href, ver, cfg.model_bytes);
   const session = await ort.InferenceSession.create(bytes, { executionProviders: ["wasm"], graphOptimizationLevel: "all" });
   engine = new Engine(ort, session, spec, cfg);
   postMessage({ type: "ready", info: { ...cfg, threads: ort.env.wasm.numThreads } });
