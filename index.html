@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>עברית עד 1948</title>
+<meta name="description" content="מודל שפה קטן שלמד רק עברית שנכתבה לפני קום המדינה. כתבו התחלה של משפט, והוא ימשיך אותה. רץ כולו בדפדפן.">
+<meta property="og:title" content="עברית עד 1948">
+<meta property="og:description" content="מודל שפה שלמד רק טקסטים שנכתבו לפני קום המדינה. כתבו התחלה, והוא ימשיך.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://omriarusi.github.io/hebrew-1948/">
+<meta property="og:image" content="https://omriarusi.github.io/hebrew-1948/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="he_IL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ebe5d8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2323395b'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f7f2e7' font-family='serif'%3E%D7%90%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500&family=Assistant:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ebe5d8; --paper: #f7f2e7; --ink: #231e18; --gen: #8b4a17; --muted: #776d60;
+    --line: #d6cbb7; --accent: #23395b; --accent-ink: #f7f2e7;
+    --shadow: 0 1px 2px rgba(60, 45, 25, .08), 0 8px 30px rgba(60, 45, 25, .08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15130f; --paper: #1e1b16; --ink: #ebe3d4; --gen: #e3a467; --muted: #9a8f80;
+      --line: #3a342b; --accent: #c9d6ea; --accent-ink: #15130f;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 30px rgba(0,0,0,.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Assistant", "Segoe UI", Arial, sans-serif; font-size: 15px; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 28px 16px 40px; }
+  header { margin-bottom: 18px; }
+  h1 { font-family: "Frank Ruhl Libre", "David", serif; font-weight: 500; font-size: 30px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 15px; }
+
+  .paper { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--shadow);
+           padding: 26px 32px; min-height: 320px; max-height: 60vh; overflow-y: auto; }
+  #page { outline: none; min-height: 260px; white-space: pre-wrap; overflow-wrap: break-word;
+          font-family: "Frank Ruhl Libre", "David", "Times New Roman", serif; font-size: 22px; line-height: 1.85; }
+  #page:empty::before { content: attr(data-placeholder); color: var(--muted); opacity: .7; }
+  #page .gen { color: var(--gen); }
+  #page .gen.live { border-left: 2px solid var(--gen); animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { border-color: transparent; } }
+
+  .loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+             gap: 12px; background: var(--paper); border-radius: 6px; color: var(--muted); text-align: center; padding: 24px; }
+  .loading[hidden] { display: none; }
+  .meter { width: min(320px, 80%); height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .meter > div { height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+  .loading small { font-size: 13px; }
+
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+  button { font: inherit; font-weight: 600; border-radius: 6px; padding: 10px 16px; cursor: pointer;
+           border: 1px solid var(--line); background: var(--paper); color: var(--ink); touch-action: manipulation; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); padding: 10px 24px; }
+  button:disabled { opacity: .45; cursor: default; }
+  .hint { color: var(--muted); font-size: 13px; margin-inline-start: auto; }
+  kbd { font-family: inherit; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; font-size: 12px; }
+  @media (hover: none) { .hint { display: none; } }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; align-items: center; }
+  .chips span { color: var(--muted); font-size: 13px; margin-inline-end: 4px; }
+  .chip { font-family: "Frank Ruhl Libre", "David", serif; font-weight: 400; font-size: 15px; padding: 5px 12px; border-radius: 999px; background: transparent; }
+
+  details { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+  summary { cursor: pointer; color: var(--muted); font-weight: 600; }
+  .settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px 24px; margin-top: 14px; }
+  .settings label { display: block; font-weight: 600; margin-bottom: 4px; }
+  .settings .val { color: var(--muted); font-weight: 400; }
+  .settings small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .about { line-height: 1.7; color: var(--ink); margin-top: 10px; }
+  .about p { margin: 0 0 10px; }
+  .about a { color: var(--accent); }
+
+  footer { margin-top: 18px; color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .err { color: #b3261e; }
+  .credit { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); text-align: center;
+            font-family: "Frank Ruhl Libre", "David", serif; font-size: 15px; color: var(--muted); }
+  @media (max-width: 560px) {
+    .wrap { padding-top: 18px; }
+    h1 { font-size: 26px; }
+    .paper { padding: 18px 18px; max-height: 55vh; }
+    #page { font-size: 20px; line-height: 1.8; }
+    .bar button.primary { flex: 1 1 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>עברית עד 1948</h1>
+    <div class="sub">מודל שפה שלמד רק טקסטים שנכתבו לפני קום המדינה. כתבו התחלה של משפט, והוא ימשיך.</div>
+  </header>
+
+  <div class="paper" id="paper">
+    <div id="page" data-placeholder="כתבו כאן התחלה של משפט…" spellcheck="false"></div>
+    <div class="loading" id="loading">
+      <div id="loadText">טוען את המודל…</div>
+      <div class="meter"><div id="meter"></div></div>
+      <small>בפעם הראשונה בלבד: כ־45MB. אחר כך הוא נשמר בדפדפן ונפתח מיד.</small>
+    </div>
+  </div>
+
+  <div class="bar">
+    <button class="primary" id="go" disabled>המשך</button>
+    <button id="stop" disabled>עצור</button>
+    <button id="undo" disabled>בטל המשך אחרון</button>
+    <button id="clear">נקה</button>
+    <span class="hint"><kbd>Ctrl</kbd>+<kbd>Enter</kbd> המשך · <kbd>Esc</kbd> עצור</span>
+  </div>
+
+  <div class="chips" id="chips"><span>נסו:</span></div>
+
+  <details>
+    <summary>הגדרות</summary>
+    <div class="settings">
+      <div>
+        <label for="len">אורך ההמשך <span class="val" id="lenVal"></span></label>
+        <input type="range" id="len" min="30" max="400" step="10" value="160">
+      </div>
+      <div>
+        <label for="temp">יצירתיות <span class="val" id="tempVal"></span></label>
+        <input type="range" id="temp" min="0.4" max="1.3" step="0.05" value="0.8">
+        <small>נמוך = צפוי ובטוח · גבוה = מפתיע ופרוע</small>
+      </div>
+      <div>
+        <label for="rep">עונש על חזרות <span class="val" id="repVal"></span></label>
+        <input type="range" id="rep" min="1" max="1.6" step="0.05" value="1.2">
+        <small>1.0 = בלי עונש · מעל 1.4 מתחיל לעוות</small>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>מה זה?</summary>
+    <div class="about">
+      <p>זהו מודל שפה קטן (<span id="aboutParams">46</span> מיליון פרמטרים, מבנה GPT) שאומן מאפס על מחשב ביתי,
+         רק על עברית שנכתבה לפני 1948: כ־17 אלף יצירות של סופרים, משוררים, עיתונאים ומתרגמים מתקופת ההשכלה והתחייה.
+         הוא לא מכיר שום דבר שנכתב אחרי קום המדינה.</p>
+      <p>המודל רץ כולו בתוך הדפדפן שלכם. מה שאתם כותבים לא נשלח לשום שרת.</p>
+      <p>הוא ממציא. הוא לא מצטט ולא יודע עובדות, ולפעמים הוא משחזר את הסגנון ואת הדעות של התקופה.</p>
+      <p>הטקסטים באדיבות <a href="https://benyehuda.org" target="_blank" rel="noopener">מתנדבי פרויקט בן־יהודה</a>.
+         האימון נעשה עם <a href="https://github.com/karpathy/nanoGPT" target="_blank" rel="noopener">nanoGPT</a>.</p>
+    </div>
+  </details>
+
+  <footer>
+    <span id="status">&nbsp;</span>
+    <span>הטקסט שלכם בשחור · המשך המודל ב<span style="color:var(--gen)">צבע דיו</span></span>
+  </footer>
+  <div class="credit">נבנה על ידי עמרי</div>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
